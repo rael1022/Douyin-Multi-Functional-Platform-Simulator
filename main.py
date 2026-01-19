@@ -1,12 +1,5 @@
 # main.py
 from user_profile import get_user_profile
-from learning_module import learning_recommendation
-from entertainment_module import entertainment_recommendation
-from shopping_module import shopping_recommendation
-from usage_analytics import track_usage
-from risk_analysis import analyze_risk
-from report_generator import generate_report
-
 
 def show_menu():
     print("\n=== Main Menu ===")
