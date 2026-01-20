@@ -53,6 +53,8 @@ def get_user_profile():
         print("1. Music")
         print("2. Cooking")
         print("3. Fitness")
+        print("4. Art")
+        print("5. Science")
 
         while True:
             choices = input("Enter choices (e.g. 1,3): ")
@@ -82,6 +84,7 @@ def get_user_profile():
         print("1. Anime")
         print("2. Travel")
         print("3. Variety Shows")
+        print("4. Documentaries")
 
         while True:
             choices = input("Enter choices (e.g. 1,2): ")
