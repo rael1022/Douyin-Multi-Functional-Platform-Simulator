@@ -2,6 +2,7 @@
 from user_profile import get_user_profile
 from learning_module import learning_recommendation
 from entertainment_module import entertainment_recommendation
+from shopping_module import shopping_recommendation
 
 
 def show_menu():
