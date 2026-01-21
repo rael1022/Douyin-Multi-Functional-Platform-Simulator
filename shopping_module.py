@@ -12,10 +12,11 @@ def shopping_recommendation(user):
         return {
             "interests": [],
             "recommendations": [],
-            "budget": budget
+            "budget": budget,
+            "status": "Viewed Only"
         }
 
-    # 模拟商品库（每个商品价格）
+    # Modified product catalog with prices
     product_catalog = {
         "Electronics": [("Wireless Earbuds", 50), ("Smart Watch", 120), ("Portable Charger", 30)],
         "Fashion": [("T-shirt", 20), ("Jeans", 40), ("Sneakers", 60)],
@@ -40,8 +41,17 @@ def shopping_recommendation(user):
             "products": affordable_products
         })
 
+
+    status = "Viewed Only"
+    if budget is not None:
+        for r in recommendations:
+            if r["products"]:
+                status = "Purchased"
+                break
+
     return {
         "interests": interests,
         "recommendations": recommendations,
-        "budget": budget
+        "budget": budget,
+        "status": status
     }
