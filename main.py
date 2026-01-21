@@ -1,76 +1,135 @@
-# main.py
 from user_profile import get_user_profile
 from learning_module import learning_recommendation
 from entertainment_module import entertainment_recommendation
 from shopping_module import shopping_recommendation
+from usage_analysis import init_usage, track_usage
+from risk_analysis import analyze_risk
+from report_generator import generate_report
 
 
-def show_menu():
+
+MENU_ORDER = [
+    ("Learning Content", "learning"),
+    ("Entertainment Content", "entertainment"),
+    ("Shopping", "shopping"),
+    ("View Usage Analysis", "usage"),
+    ("View Risk Analysis", "risk"),
+    ("Generate Full Report", "report"),
+    ("Exit", "exit")
+]
+
+
+def build_menu(user):
+    menu = []
+
+    for label, action in MENU_ORDER:
+        if action in ["usage", "risk", "report", "exit"]:
+            menu.append((label, action))
+        elif action == "learning" and user["purpose"] in ["Learning", "Mixed"]:
+            menu.append((label, action))
+        elif action == "entertainment" and user["purpose"] in ["Entertainment", "Mixed"]:
+            menu.append((label, action))
+        elif action == "shopping" and user["purpose"] in ["Shopping", "Mixed"]:
+            menu.append((label, action))
+
+    return menu
+
+
+def show_menu(menu):
     print("\n=== Main Menu ===")
-    print("1. Learning Content")
-    print("2. Entertainment Content")
-    print("3. Shopping")
-    print("4. View Risk Analysis")
-    print("5. Generate Full Report")
-    print("0. Exit")
+    for idx, (label, _) in enumerate(menu):
+        if idx == len(menu) - 1:
+            print(f"0. {label}")
+        else:
+            print(f"{idx + 1}. {label}")
+
+
+def wait_back_to_menu():
+    while True:
+        back = input("\nEnter 0 to back to menu: ").strip()
+        if back == "0":
+            break
+        else:
+            print("Invalid input. Please enter 0.")
 
 
 def main():
     print("=== Welcome to SmartApp ===")
 
-    # Step 1: Get user profile
     user = get_user_profile()
-
-    # Containers to store results
     content = {}
-    usage = None
+    usage = init_usage()
     shopping_result = None
 
-    # Step 2: Menu loop
     while True:
-        show_menu()
-        choice = input("Enter your choice: ")
+        menu = build_menu(user)
+        show_menu(menu)
 
-        if choice == "1":
-            print("\n--- Learning Module ---")
+        choice = input("Enter your choice: ").strip()
+
+        if choice == "0":
+            action = "exit"
+        elif choice.isdigit() and 1 <= int(choice) <= len(menu) - 1:
+            action = menu[int(choice) - 1][1]
+        else:
+            print("Invalid choice. Please try again.")
+            continue
+
+        # ---------- Exit ----------
+        if action == "exit":
+            print("Thank you for using SmartApp. Goodbye!")
+            break
+
+        # ---------- Learning ----------
+        elif action == "learning":
             content["learning"] = learning_recommendation(user)
-            usage = track_usage(user)
-            print("Learning content displayed.")
+            usage = track_usage(usage, "learning")
 
-        elif choice == "2":
-            print("\n--- Entertainment Module ---")
+        # ---------- Entertainment ----------
+        elif action == "entertainment":
             content["entertainment"] = entertainment_recommendation(user)
-            usage = track_usage(user)
-            print("Entertainment content displayed.")
+            usage = track_usage(usage, "entertainment")
 
-        elif choice == "3":
-            print("\n--- Shopping Module ---")
+        # ---------- Shopping ----------
+        elif action == "shopping":
             shopping_result = shopping_recommendation(user)
             content["shopping"] = shopping_result
-            usage = track_usage(user)
+            usage = track_usage(usage, "shopping")
 
-        elif choice == "4":
+        # ---------- Usage ----------
+        elif action == "usage":
+            print("\n--- Usage Analysis ---")
+            if usage["total_time"] == 0:
+                print("Please use the app first.")
+            else:
+                print(f"Total Time: {usage['total_time']} minutes")
+                print(f"Learning Time: {usage['learning_time']} minutes")
+                print(f"Entertainment Time: {usage['entertainment_time']} minutes")
+                print(f"Shopping Time: {usage['shopping_time']} minutes")
+
+            wait_back_to_menu()
+
+        # ---------- Risk ----------
+        elif action == "risk":
             print("\n--- Risk Analysis ---")
-            if usage is None:
-                print("Please use the app first before viewing risk analysis.")
+            if usage["total_time"] == 0:
+                print("Please use the app first.")
             else:
                 risk = analyze_risk(user, usage, shopping_result)
-                print(risk)
+                print(f"Addiction Risk Level: {risk['addiction_risk']}")
+                print(f"Spending Risk Level: {risk['spending_risk']}")
 
-        elif choice == "5":
-            print("\n--- Final Report ---")
-            if usage is None:
-                print("Please use the app first before generating a report.")
+            wait_back_to_menu()
+
+        # ---------- Report ----------
+        elif action == "report":
+            if usage["total_time"] == 0:
+                print("Please use the app first.")
             else:
                 risk = analyze_risk(user, usage, shopping_result)
                 generate_report(user, usage, content, risk)
 
-        elif choice == "0":
-            print("Thank you for using SmartApp. Goodbye!")
-            break
-
-        else:
-            print("Invalid choice. Please try again.")
+            wait_back_to_menu()
 
 
 if __name__ == "__main__":
