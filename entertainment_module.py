@@ -1,7 +1,10 @@
 # entertainment_module.py
 
 def entertainment_recommendation(user):
-    print("\n--- Entertainment Recommendations ---")
+    CYAN = "\033[96m"
+    RESET = "\033[0m"
+
+    print(f"\n{CYAN}--- Entertainment Recommendations ---{RESET}")
 
     interests = user.get("entertainment_interest", [])
     recommendations = []

@@ -1,9 +1,12 @@
+PURPLE = "\033[95m"
+RESET = "\033[0m"
+
 def generate_report(user, usage, content, risk):
     """
     Generate a final user behavior and risk assessment report.
     """
 
-    print("\n========== SMARTAPP USER REPORT ==========\n")
+    print(f"{PURPLE}\n========== SMARTAPP USER REPORT ==========\n{RESET}")
 
     # ---------- User Profile ----------
     print("User Profile:")
@@ -55,4 +58,4 @@ def generate_report(user, usage, content, risk):
             "which may lead to financial risks."
         )
 
-    print("\n========== END OF REPORT ==========\n")
+    print(f"{PURPLE}\n========== END OF REPORT ==========\n{RESET}")

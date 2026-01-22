@@ -6,7 +6,15 @@ from usage_analysis import init_usage, track_usage
 from risk_analysis import analyze_risk
 from report_generator import generate_report
 
-
+BLUE = "\033[94m"
+PINK = "\033[38;5;205m"
+GREEN = "\033[92m"
+YELLOW = "\033[93m"
+RED = "\033[91m"
+PURPLE = "\033[38;5;141m"
+CYAN = "\033[96m"
+INDIGO = "\033[38;5;57m"
+RESET = "\033[0m"
 
 MENU_ORDER = [
     ("Learning Content", "learning"),
@@ -36,7 +44,7 @@ def build_menu(user):
 
 
 def show_menu(menu):
-    print("\n=== Main Menu ===")
+    print(f"{PINK}\n=== Main Menu ==={RESET}")
     for idx, (label, _) in enumerate(menu):
         if idx == len(menu) - 1:
             print(f"0. {label}")
@@ -46,15 +54,15 @@ def show_menu(menu):
 
 def wait_back_to_menu():
     while True:
-        back = input("\nEnter 0 to back to menu: ").strip()
+        back = input(f"{BLUE}\nEnter 0 to back to menu: {RESET}").strip()
         if back == "0":
             break
         else:
-            print("Invalid input. Please enter 0.")
+            print(f"{RED}Invalid input. Please enter 0.{RESET}")
 
 
 def main():
-    print("=== Welcome to SmartApp ===")
+    print(f"{INDIGO}=== Welcome to SmartApp ==={RESET}")
 
     user = get_user_profile()
     content = {}
@@ -65,19 +73,19 @@ def main():
         menu = build_menu(user)
         show_menu(menu)
 
-        choice = input("Enter your choice: ").strip()
+        choice = input(f"{BLUE}Enter your choice: {RESET}").strip()
 
         if choice == "0":
             action = "exit"
         elif choice.isdigit() and 1 <= int(choice) <= len(menu) - 1:
             action = menu[int(choice) - 1][1]
         else:
-            print("Invalid choice. Please try again.")
+            print(f"{RED}Invalid choice. Please try again.{RESET}")
             continue
 
         # ---------- Exit ----------
         if action == "exit":
-            print("Thank you for using SmartApp. Goodbye!")
+            print(f"{YELLOW}\nThank you for using SmartApp. Goodbye!{RESET}")
             break
 
         # ---------- Learning ----------

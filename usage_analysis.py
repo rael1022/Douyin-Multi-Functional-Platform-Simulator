@@ -1,3 +1,6 @@
+ORANGE = "\033[38;5;208m"
+RESET = "\033[0m"
+
 def init_usage():
     """
     Initialize usage data for one user session
@@ -19,7 +22,7 @@ def track_usage(usage, activity):
     activity: 'learning' | 'entertainment' | 'shopping'
     """
 
-    time_spent = int(input("How many minutes did you spend? "))
+    time_spent = int(input(f"{ORANGE}\nHow many minutes did you spend? {RESET}"))
 
     usage["total_time"] += time_spent
 

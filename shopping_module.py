@@ -1,7 +1,11 @@
 # shopping_module.py
 
 def shopping_recommendation(user):
-    print("\n--- Shopping Recommendations ---")
+    YELLOW = "\033[93m"
+    RESET = "\033[0m"
+
+    print(f"\n{YELLOW}--- Shopping Recommendations ---{RESET}")
+
 
     interests = user.get("shopping_interest", [])
     budget = user.get("budget", None)

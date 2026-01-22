@@ -1,7 +1,10 @@
 # learning_module.py
 
 def learning_recommendation(user):
-    print("\n--- Learning Recommendations ---")
+    GREEN = "\033[92m"
+    RESET = "\033[0m"
+
+    print(f"\n{GREEN}--- Learning Recommendations ---{RESET}")
 
     interests = user.get("learning_interest", [])
     recommendations = []
