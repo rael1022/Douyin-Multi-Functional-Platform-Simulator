@@ -1,4 +1,3 @@
-# user_profile.py
 BLUE = "\033[94m"
 GREEN = "\033[92m"
 YELLOW = "\033[93m"
@@ -82,7 +81,7 @@ def get_user_profile():
                 user["learning_interest"] = [mapping[c.strip()] for c in selected]
                 break
             else:
-                print(f"{RED}Invalid input. Please select from 1, 2, 3.{RESET}")
+                print(f"{RED}Invalid input. Please select numbers from the list.{RESET}")
 
     # 4. Entertainment interests
     if user["purpose"] in ["Entertainment", "Mixed"]:
@@ -90,7 +89,7 @@ def get_user_profile():
         print("1. Anime")
         print("2. Travel")
         print("3. Variety Shows")
-        print("4. Documentaries")
+        print("4. Comedy")
 
         while True:
             choices = input(f"{BLUE}Enter choices (e.g. 1,2): {RESET}")
@@ -106,12 +105,12 @@ def get_user_profile():
                     "1": "Anime",
                     "2": "Travel",
                     "3": "Variety Shows",
-                    "4": "Documentaries"
+                    "4": "Comedy"
                 }
                 user["entertainment_interest"] = [mapping[c.strip()] for c in selected]
                 break
             else:
-                print(f"{RED}Invalid input. Please select from 1, 2, 3.{RESET}")
+                print(f"{RED}Invalid input. Please select numbers from the list.{RESET}")
 
     # 5. Shopping interests & budget
     if user["purpose"] in ["Shopping", "Mixed"]:

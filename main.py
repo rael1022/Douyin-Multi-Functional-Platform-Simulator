@@ -106,10 +106,10 @@ def main():
 
         # ---------- Usage ----------
         elif action == "usage":
-            print("\n--- Usage Analysis ---")
             if usage["total_time"] == 0:
                 print("Please use the app first.")
             else:
+                print("\n--- Usage Analysis ---")
                 print(f"Total Time: {usage['total_time']} minutes")
                 print(f"Learning Time: {usage['learning_time']} minutes")
                 print(f"Entertainment Time: {usage['entertainment_time']} minutes")
@@ -119,10 +119,10 @@ def main():
 
         # ---------- Risk ----------
         elif action == "risk":
-            print("\n--- Risk Analysis ---")
             if usage["total_time"] == 0:
                 print("Please use the app first.")
             else:
+                print("\n--- Risk Analysis ---")
                 risk = analyze_risk(user, usage, shopping_result)
                 print(f"Addiction Risk Level: {risk['addiction_risk']}")
                 print(f"Spending Risk Level: {risk['spending_risk']}")
@@ -138,7 +138,6 @@ def main():
                 generate_report(user, usage, content, risk)
 
             wait_back_to_menu()
-
-
+            
 if __name__ == "__main__":
     main()
