@@ -1,4 +1,5 @@
 ORANGE = "\033[38;5;208m"
+RED = "\033[91m"
 RESET = "\033[0m"
 
 def init_usage():
@@ -22,7 +23,20 @@ def track_usage(usage, activity):
     activity: 'learning' | 'entertainment' | 'shopping'
     """
 
-    time_spent = int(input(f"{ORANGE}\nHow many minutes did you spend? {RESET}"))
+
+    while True:
+        try:
+            time_spent = int(input(f"{ORANGE}\nHow many minutes did you spend? {RESET}"))
+
+            if time_spent <= 0:
+                print(f"{RED}Please enter a positive number.{RESET}")
+                continue
+
+            break
+
+        except ValueError:
+            print(f"{RED}Invalid input. Please enter a number.{RESET}")
+
 
     usage["total_time"] += time_spent
 
