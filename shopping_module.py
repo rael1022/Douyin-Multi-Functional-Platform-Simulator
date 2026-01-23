@@ -24,7 +24,7 @@ def shopping_recommendation(user):
     product_catalog = {
         "Electronics": [("Wireless Earbuds", 50), ("Smart Watch", 120), ("Portable Charger", 30)],
         "Fashion": [("T-shirt", 20), ("Jeans", 40), ("Sneakers", 60)],
-        "Sports Goods": [("Yoga Mat", 25), ("Dumbbell Set", 70), ("Running Shoes", 80)]
+        "Sports": [("Yoga Mat", 25), ("Dumbbell Set", 70), ("Running Shoes", 80)]
     }
 
     for interest in interests:
